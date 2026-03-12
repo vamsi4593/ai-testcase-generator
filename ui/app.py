@@ -103,6 +103,6 @@ with results_container:
                 data=csv_data,
                 file_name=csv_file_name,
                 mime="text/csv",
-                )
+            )
     else:
         st.info("Enter a requirement and click Generate Test Cases.")
