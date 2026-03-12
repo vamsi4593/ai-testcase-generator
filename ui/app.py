@@ -93,25 +93,16 @@ with results_container:
 
         if st.session_state.get("show_export", False):
 
-            with st.form("Give File Name:"):
-                csv_file_name = st.text_input(
-                    "Enter Filename:", value=Exp.default_file_name(requirement)
-                )
+            csv_file_name = st.text_input(
+                "Enter Filename:", value=Exp.default_file_name(requirement)
+            )
 
-                submit = st.form_submit_button("Generate CSV")
-
-                if submit:
-                    st.session_state.csv_file_name = csv_file_name
-                    st.session_state.download_ready = True
-
-            if st.session_state.get("download_ready", False):
-
-                csv_data = Exp.build_csv_data(testcases)
-                st.download_button(
-                    label="Submit",
-                    data=csv_data,
-                    file_name=csv_file_name,
-                    mime="text/csv",
+            csv_data = Exp.build_csv_data(testcases)
+            st.download_button(
+                label="Submit",
+                data=csv_data,
+                file_name=csv_file_name,
+                mime="text/csv",
                 )
     else:
         st.info("Enter a requirement and click Generate Test Cases.")
