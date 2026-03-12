@@ -69,6 +69,23 @@ pip install -r requirements.txt
 
 ---
 
+## Code Quality
+
+This project follows Python PEP8 conventions and uses modern linting and formatting tools to maintain consistent code quality.
+
+Tools used:
+
+- **ruff** – fast Python linter for detecting style issues and unused imports
+- **black** – automatic code formatter for consistent styling
+
+Run locally:
+
+bash
+ruff check .
+black .
+
+---
+
 ## Environment Setup
 
 Create a file:
@@ -136,12 +153,6 @@ Planned improvements:
 - Test data generation
 - API interface
 - Enhanced UI and UX
-
----
-
-## License
-
-This project is licensed under the MIT License.
 
 ---
 
