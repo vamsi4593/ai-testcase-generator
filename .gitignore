@@ -1,0 +1,16 @@
+# Python
+__pycache__/
+*.pyc
+
+# Virtual env
+.venv/
+
+# Environment variables
+.env
+project.env
+
+# IDE
+.idea/
+
+# Generated files
+*.csv
