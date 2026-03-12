@@ -48,7 +48,7 @@ AI Test Case Generator
 
 Clone the repository:
 
-git clone https://github.com/YOUR_USERNAME/ai-testcase-generator.git  
+git clone https://github.com/vamsi4593/ai-testcase-generator.git  
 cd ai-testcase-generator
 
 Create a virtual environment:
