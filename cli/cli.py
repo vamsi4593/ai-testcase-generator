@@ -32,7 +32,7 @@ while export_test_cases not in ["y", "n"]:
 
 if export_test_cases == "y":
 
-    default_name = Exp.default_fil_name(requirement)
+    default_name = Exp.default_file_name(requirement)
     csv_file_name = input(f"Please enter your csv file name(default name: {default_name}) : ")
     if csv_file_name == "":
         csv_file_name = default_name

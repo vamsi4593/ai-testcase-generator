@@ -94,7 +94,7 @@ with results_container:
         if st.session_state.get("show_export",False):
 
             with st.form("Give File Name:"):
-                csv_file_name = st.text_input("Enter Filename:",value = Exp.default_fil_name(requirement))
+                csv_file_name = st.text_input("Enter Filename:",value = Exp.default_file_name(requirement))
 
                 submit = st.form_submit_button("Generate CSV")
 
