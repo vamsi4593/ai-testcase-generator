@@ -13,5 +13,6 @@ project.env
 .idea/
 
 # Generated files
+!data/sample_testcases.csv
 *.csv
 *.index

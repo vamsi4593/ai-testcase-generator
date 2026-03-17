@@ -1,9 +1,11 @@
 import pandas as pd
-from sympy import expand
+from pathlib import Path
+
+BASE_DIR = Path(__file__).resolve().parent.parent
+file_path = BASE_DIR / "data" / "sample_testcases.csv"
 
 
 def document_writer(test_case_type):
-    file_path = "C:/Users/LENOVO/testcases/payment_testcases_formatted.csv"
 
     pd.set_option('display.max_columns', None)
     pd.set_option('display.max_rows', None)
@@ -36,4 +38,6 @@ def document_writer(test_case_type):
     filtered_doc = [doc for doc in documents if test_case_type in doc]
     print(f"length of filtered documents : {len(filtered_doc)}")
     return filtered_doc
+
+document_writer("functional")
 
