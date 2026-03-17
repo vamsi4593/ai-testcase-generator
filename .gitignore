@@ -14,3 +14,4 @@ project.env
 
 # Generated files
 *.csv
+*.index
