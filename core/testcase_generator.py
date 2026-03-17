@@ -1,11 +1,26 @@
 import config
 from openai import OpenAI
 from models import pydantic_models as Pm
+from rag import embeddings as embd
 
 
 def prompt_builder(requirement, test_type):
     test_case_type = normalised_test_type(test_type)
-    return f"Generating {test_case_type} test cases for {requirement}"
+    initial_prompt = f"Generating {test_case_type} test cases for {requirement}"
+    print(f"------ user prompt: {initial_prompt}")
+    context_prompt = embd.create_context_prompt(initial_prompt, k=6)
+    prompt = f"""
+    I am providing reference test cases from our database to show you the expected format and level of detail.
+
+    ### REFERENCE SAMPLES (Do not copy these):
+    {context_prompt}
+
+
+    ### YOUR TASK:
+    Generate BRAND NEW, unique {test_case_type}(positive, negative and edge) test cases for this requirement: "{requirement}"
+    The output must follow the style of the references but contain different steps and logic specific to the new requirement.
+    """
+    return prompt
 
 
 def normalised_test_type(test_case_type):

@@ -3,7 +3,9 @@
 
 An AI-powered tool that generates structured software test cases from natural language requirements using Large Language Models (LLMs).
 
-The project provides both a CLI interface and a web-based UI built with Streamlit, enabling testers and developers to quickly generate functional and non-functional test cases and export them in a structured format.
+Now enhanced with Retrieval-Augmented Generation (RAG), enabling more context-aware, relevant, and realistic test case generation.
+
+The project provides both a CLI interface and a web-based UI built with Streamlit, allowing testers and developers to quickly generate functional and non-functional test cases and export them in a structured format.
 
 ---
 
@@ -15,7 +17,58 @@ The project provides both a CLI interface and a web-based UI built with Streamli
 - Streamlit web UI for interactive usage
 - Export generated test cases to CSV
 - Modular architecture for easy extension
-- Designed to evolve into a RAG-powered QA assistant
+- RAG-based retrieval using FAISS for context-aware generation
+- Semantic search over existing test cases
+
+---
+
+## 📂 Sample Dataset
+
+A sample dataset is included in the `data/` directory to demonstrate RAG-based retrieval.
+
+- File: `data/sample_testcases.csv`
+- Contains structured test cases used for semantic search
+- You can replace this file with your own test case repository
+
+Note: Larger or private datasets can be excluded using `.gitignore`.
+
+---
+
+## 🚀 Update (V2 - RAG Integration)
+
+This version introduces Retrieval-Augmented Generation (RAG) to improve the quality and relevance of generated test cases.
+
+### How it works
+
+Requirement  
+→ Retrieve similar test cases using FAISS  
+→ Inject them into the prompt  
+→ Generate context-aware test cases  
+
+### Improvements
+
+- More realistic and domain-specific scenarios  
+- Better coverage of edge cases (e.g., invalid payment, cancellation)  
+- Reduced generic outputs  
+
+### Example
+
+Input:  
+User pays using PayPal  
+
+Before (V1):  
+- Generic payment-related test cases  
+
+After (V2):  
+- PayPal-specific scenarios such as valid payment, cancellation, insufficient funds  
+
+### Notes
+
+-- A sample CSV dataset is provided in `/data` for quick testing
+- ~300 test cases are used for retrieval  
+- Embeddings are generated using sentence-transformers  
+- FAISS index is currently built at runtime  
+- Future improvement: persist index to disk for faster startup  
 
 ---
 
@@ -24,23 +77,36 @@ The project provides both a CLI interface and a web-based UI built with Streamli
 AI Test Case Generator
 
 ├── cli
-│   └── cli.py              # CLI interface
+│   └── cli.py              # CLI interface for user input and execution
 │
 ├── core
-│   └── TCGenerator.py      # LLM interaction and test case generation
+│   ├── __init__.py
+│   └── testcase_generator.py   # LLM interaction and test case generation logic
 │
 ├── models
-│   └── PydanticModels.py   # Structured output models
+│   ├── __init__.py
+│   └── pydantic_models.py      # Structured schema for test case output
 │
-├── utils
-│   └── ExportToCSV.py      # CSV export utilities
+├── rag
+│   ├── __init__.py
+│   ├── documents.py            # Creates and manages test case documents
+│   └── embeddings.py           # Generates embeddings and performs FAISS retrieval
+│
+├── data
+│   └── sample_testcases.csv    # Sample dataset used for RAG retrieval
 │
 ├── ui
-│   └── app.py              # Streamlit web application
+│   └── app.py                  # Streamlit web application
 │
-├── config.py               # Environment configuration
-├── requirements.txt
-└── .gitignore
+├── utils
+│   ├── __init__.py
+│   └── export_csv.py           # Export test cases to CSV
+│
+├── config.py                   # Configuration and environment setup
+├── project.env                 # Environment variables (not committed)
+├── requirements.txt            # Project dependencies
+├── README.md                   # Project documentation
+└── .gitignore                  # Ignored files
 
 ---
 
@@ -66,6 +132,8 @@ source .venv/bin/activate
 Install dependencies:
 
 pip install -r requirements.txt
+
+Ensure the sample dataset is present in the `data/` directory before running the application.
 
 ---
 
@@ -148,7 +216,9 @@ Expected Result: User is redirected to dashboard
 
 Planned improvements:
 
-- Retrieval-Augmented Generation (RAG) for smarter test case generation
+- Improve RAG with better filtering and reranking
+- Persist FAISS index for faster retrieval
+- Generate executable automation scripts from test cases
 - Integration with test management tools (Jira, TestRail, Zephyr)
 - Test data generation
 - API interface
