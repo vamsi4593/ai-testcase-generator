@@ -7,21 +7,19 @@ file_path = BASE_DIR / "data" / "sample_testcases.csv"
 
 def document_writer(test_case_type):
 
-    pd.set_option('display.max_columns', None)
-    pd.set_option('display.max_rows', None)
-    pd.set_option('display.max_colwidth', None)
+    pd.set_option("display.max_columns", None)
+    pd.set_option("display.max_rows", None)
+    pd.set_option("display.max_colwidth", None)
 
     df = pd.read_csv(file_path).ffill()
 
-    groups = df.groupby(["test_case_id", "title", "test_type"])
-
     result = (
-        df.groupby(["test_case_id", "title","test_type"])
-        .apply(lambda x: x.to_dict("records"),
-               include_groups=False)
-        .to_dict())
+        df.groupby(["test_case_id", "title", "test_type"])
+        .apply(lambda x: x.to_dict("records"), include_groups=False)
+        .to_dict()
+    )
 
-    #result = {f'{test_case_id} - {title}': rows for (test_case_id, title), rows in result.items()}
+    # result = {f'{test_case_id} - {title}': rows for (test_case_id, title), rows in result.items()}
 
     documents = []
     for key in result.keys():
@@ -39,5 +37,5 @@ def document_writer(test_case_type):
     print(f"length of filtered documents : {len(filtered_doc)}")
     return filtered_doc
 
-document_writer("functional")
 
+document_writer("functional")

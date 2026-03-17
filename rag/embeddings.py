@@ -3,7 +3,7 @@ import numpy as np
 from sentence_transformers import SentenceTransformer
 from rag import documents as doc
 
-model = SentenceTransformer('all-MiniLM-L6-v2')
+model = SentenceTransformer("all-MiniLM-L6-v2")
 test_case_type = "Functional"
 document = doc.document_writer(test_case_type)
 
@@ -30,6 +30,6 @@ def create_context_prompt(input_prompt, k):
     context_prompt = ""
     for i in indices.flatten():
         if test_case_type in document[i]:
-            print( {document[i]})
+            print({document[i]})
         context_prompt += document[i]
     return context_prompt

@@ -8,7 +8,7 @@ def prompt_builder(requirement, test_type):
     test_case_type = normalised_test_type(test_type)
     initial_prompt = f"Generating {test_case_type} test cases for {requirement}"
     print(f"------ user prompt: {initial_prompt}")
-    context_prompt = embd.create_context_prompt(initial_prompt,k=6)
+    context_prompt = embd.create_context_prompt(initial_prompt, k=6)
     prompt = f"""
     I am providing reference test cases from our database to show you the expected format and level of detail.
 
