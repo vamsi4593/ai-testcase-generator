@@ -1,7 +1,7 @@
 from core import TestCaseGenerator
 from utils import export_csv as Exp
 
-tg=TestCaseGenerator()
+tg = TestCaseGenerator()
 
 print("---------- AI Test Case Generator ----------")
 requirement = input("Please enter your requirement: ")

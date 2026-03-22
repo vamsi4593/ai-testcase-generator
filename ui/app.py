@@ -4,7 +4,7 @@ import math
 from core import TestCaseGenerator
 from utils import export_csv as Exp
 
-tg=TestCaseGenerator()
+tg = TestCaseGenerator()
 
 st.set_page_config(page_title="AI Test Case Generator", page_icon="🧪", layout="wide")
 

@@ -12,7 +12,9 @@ class TestCaseGenerator:
         test_case_type = self.normalised_test_type(test_type)
         initial_prompt = f"Generating {test_case_type} test cases for {requirement}"
         print(f"------ user prompt: {initial_prompt}")
-        context_prompt = self.rag.create_context_prompt(initial_prompt, test_case_type, k=6)
+        context_prompt = self.rag.create_context_prompt(
+            initial_prompt, test_case_type, k=6
+        )
         prompt = f"""
         I am providing reference test cases from our database to show you the expected format and level of detail.
 
@@ -26,7 +28,7 @@ class TestCaseGenerator:
         """
         return prompt
 
-    def normalised_test_type(self,test_case_type):
+    def normalised_test_type(self, test_case_type):
         test_type_map = {
             "functional": "Functional",
             "non-functional": "Non-Functional",

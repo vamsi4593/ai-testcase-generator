@@ -4,20 +4,20 @@ from sentence_transformers import SentenceTransformer
 from rag import documents as doc
 import os
 
+
 class RAGEngine:
     def __init__(self):
-        self.model = SentenceTransformer('all-MiniLM-L6-v2')
+        self.model = SentenceTransformer("all-MiniLM-L6-v2")
         self.threshold = 0.45
-
 
     # TODO: Add detailed comments explaining RAG flow and retrieval decisions
 
-    def get_document(self,test_case_type):
+    def get_document(self, test_case_type):
         document = doc.document_writer(test_case_type)
 
         return document
 
-    def get_doc_embeddings(self,test_case_type):
+    def get_doc_embeddings(self, test_case_type):
         model = self.model
         document = self.get_document(test_case_type)
         doc_embeddings = model.encode(document).astype(np.float32)
@@ -40,7 +40,6 @@ class RAGEngine:
 
         return index
 
-
     def create_context_prompt(self, input_prompt, test_case_type, k):
         model = self.model
         document = self.get_document(test_case_type)
@@ -54,8 +53,12 @@ class RAGEngine:
         filtered_indices = indices[0][mask]
         filtered_distances = distances[0][mask]
 
-        print(f"distance before threshold is : {distances} and after is : {filtered_distances}")
-        print(f"matching indices before threshold is {indices} and after is :{filtered_indices}")
+        print(
+            f"distance before threshold is : {distances} and after is : {filtered_distances}"
+        )
+        print(
+            f"matching indices before threshold is {indices} and after is :{filtered_indices}"
+        )
         print("----------Retrieved documents after similarity filtering: ----------")
         for i in filtered_indices.flatten():
             print(f"{i} : {document[i]}\n")
