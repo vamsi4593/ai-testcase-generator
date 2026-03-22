@@ -32,9 +32,7 @@ def document_writer(test_case_type):
                 expected_result = f"{row[row_key]}"
         doc_str += f"expected result : {expected_result}\n"
         documents.append(doc_str)
-    print(f"length of documents : {len(documents)}")
     filtered_doc = [doc for doc in documents if test_case_type in doc]
-    print(f"length of filtered documents : {len(filtered_doc)}")
     return filtered_doc
 
 

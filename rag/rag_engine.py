@@ -8,7 +8,7 @@ import os
 class RAGEngine:
     def __init__(self):
         self.model = SentenceTransformer("all-MiniLM-L6-v2")
-        self.threshold = 0.45
+        self.threshold = 0.48
 
     # TODO: Add detailed comments explaining RAG flow and retrieval decisions
 
@@ -21,6 +21,8 @@ class RAGEngine:
         model = self.model
         document = self.get_document(test_case_type)
         doc_embeddings = model.encode(document).astype(np.float32)
+        faiss.normalize_L2(doc_embeddings)
+        print("Doc norm sample:", np.linalg.norm(doc_embeddings[0]))
 
         return doc_embeddings
 
@@ -44,6 +46,8 @@ class RAGEngine:
         model = self.model
         document = self.get_document(test_case_type)
         embedded_in_prompt = model.encode([input_prompt]).astype(np.float32)
+        faiss.normalize_L2(embedded_in_prompt)
+        print("Query norm:", np.linalg.norm(embedded_in_prompt[0]))
         index = self.load_index(test_case_type)
         if index is None:
             index = self.build_index(test_case_type)
@@ -51,17 +55,6 @@ class RAGEngine:
         threshold = self.threshold
         mask = distances[0] >= threshold
         filtered_indices = indices[0][mask]
-        filtered_distances = distances[0][mask]
-
-        print(
-            f"distance before threshold is : {distances} and after is : {filtered_distances}"
-        )
-        print(
-            f"matching indices before threshold is {indices} and after is :{filtered_indices}"
-        )
-        print("----------Retrieved documents after similarity filtering: ----------")
-        for i in filtered_indices.flatten():
-            print(f"{i} : {document[i]}\n")
         context_prompt: str = ""
 
         for i in filtered_indices.flatten():
