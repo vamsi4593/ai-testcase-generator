@@ -9,6 +9,14 @@ The project provides both a CLI interface and a web-based UI built with Streamli
 
 ---
 
+## 📈 Evolution
+
+- V1: Basic LLM-based test case generation  
+- V2: Introduced RAG for context-aware generation  
+- V3: Improved retrieval precision and refactored architecture  
+
+---
+
 ## Features
 
 - Generate test cases from plain English requirements
@@ -64,11 +72,37 @@ After (V2):
 
 ### Notes
 
--- A sample CSV dataset is provided in `/data` for quick testing
+- A sample CSV dataset is provided in `/data` for quick testing
 - ~300 test cases are used for retrieval  
 - Embeddings are generated using sentence-transformers  
 - FAISS index is currently built at runtime  
 - Future improvement: persist index to disk for faster startup  
+
+---
+
+## 🚀 Update (V3 - Retrieval Improvements & Architecture Refactor)
+
+Enhanced retrieval accuracy and improved system design and modularity.
+
+### Retrieval Enhancements
+
+- Implemented embedding normalization to enable cosine similarity with FAISS
+- Added similarity threshold filtering to improve relevance
+- Improved retrieval consistency and reduced noisy results
+
+### Architecture Improvements
+
+- Refactored RAG pipeline into `RAGEngine` class
+- Introduced `TestCaseGenerator` for orchestration
+- Improved modularity for CLI and UI reuse
+
+---
+
+## 🔄 Pipeline Architecture
+
+The system uses a Retrieval-Augmented Generation (RAG) pipeline:
+
+Requirement → Embedding → Normalization → FAISS (Top-K Retrieval) → Similarity Filtering → Prompt → LLM → Test Cases
 
 ---
 
@@ -90,7 +124,7 @@ AI Test Case Generator
 ├── rag
 │   ├── __init__.py
 │   ├── documents.py            # Creates and manages test case documents
-│   └── embeddings.py           # Generates embeddings and performs FAISS retrieval
+│   └── rag_engine.py           # Generates embeddings and performs FAISS retrieval
 │
 ├── data
 │   └── sample_testcases.csv    # Sample dataset used for RAG retrieval
