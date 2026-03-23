@@ -1,5 +1,7 @@
-from core import testcase_generator as Tg
+from core import TestCaseGenerator
 from utils import export_csv as Exp
+
+tg = TestCaseGenerator()
 
 print("---------- AI Test Case Generator ----------")
 requirement = input("Please enter your requirement: ")
@@ -23,7 +25,7 @@ def display_test_cases(test_cases):
             print(f"   Expected Result: {step.expected_result} \n")
 
 
-testcases = Tg.generate_testcase(requirement, test_type)
+testcases = tg.generate_testcase(requirement, test_type)
 display_test_cases(testcases)
 
 

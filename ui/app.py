@@ -1,8 +1,10 @@
 import streamlit as st
 import pandas as pd
 import math
-from core import testcase_generator as Tg
+from core import TestCaseGenerator
 from utils import export_csv as Exp
+
+tg = TestCaseGenerator()
 
 st.set_page_config(page_title="AI Test Case Generator", page_icon="🧪", layout="wide")
 
@@ -24,7 +26,7 @@ if st.sidebar.button("Generate Test Cases"):
         st.warning("Please enter a requirement")
     else:
         with st.spinner("Generating Test Cases..."):
-            st.session_state.testcases = Tg.generate_testcase(requirement, test_type)
+            st.session_state.testcases = tg.generate_testcase(requirement, test_type)
             st.session_state.page_num = 0  # reset pagination
 
 
@@ -40,7 +42,7 @@ with results_container:
         col1, col2, col3 = st.columns(3)
         col1.metric("Total Cases", total_cases)
         col2.metric("Total Steps", total_steps)
-        col3.metric("Test Type", Tg.normalised_test_type(test_type))
+        col3.metric("Test Type", tg.normalised_test_type(test_type))
 
         items_per_page = 2
         total_pages = math.ceil(total_cases / items_per_page)
