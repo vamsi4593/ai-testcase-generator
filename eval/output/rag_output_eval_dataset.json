@@ -1,0 +1,272 @@
+[
+  {
+    "query": "Valid credit card payment",
+    "expected_topics": [
+      "card number validation",
+      "payment authorization",
+      "order confirmation",
+      "successful transaction flow"
+    ]
+  },
+  {
+    "query": "Invalid credit card number",
+    "expected_topics": [
+      "Luhn algorithm check",
+      "card format rejection",
+      "invalid card error message",
+      "payment block on invalid input"
+    ]
+  },
+  {
+    "query": "Invalid CVV number",
+    "expected_topics": [
+      "CVV length validation",
+      "CVV mismatch handling",
+      "payment rejection",
+      "CVV error feedback"
+    ]
+  },
+  {
+    "query": "American Express card with 15 digits",
+    "expected_topics": [
+      "15-digit card support",
+      "Amex card type detection",
+      "card length boundary",
+      "multi-network compatibility"
+    ]
+  },
+  {
+    "query": "Minimum payment amount",
+    "expected_topics": [
+      "minimum charge threshold",
+      "gateway floor limit",
+      "sub-threshold rejection",
+      "amount boundary validation"
+    ]
+  },
+  {
+    "query": "Zero amount payment",
+    "expected_topics": [
+      "zero amount prevention",
+      "payment disabled state",
+      "free order handling",
+      "amount floor enforcement"
+    ]
+  },
+  {
+    "query": "Negative amount manipulation",
+    "expected_topics": [
+      "server-side amount validation",
+      "negative value rejection",
+      "tampered request detection",
+      "client-side bypass prevention"
+    ]
+  },
+  {
+    "query": "Payment with insufficient funds",
+    "expected_topics": [
+      "bank decline handling",
+      "insufficient balance error",
+      "decline code processing",
+      "retry suggestion"
+    ]
+  },
+  {
+    "query": "Payment declined by issuing bank",
+    "expected_topics": [
+      "bank decline response",
+      "decline code mapping",
+      "user notification on failure",
+      "payment failure recovery"
+    ]
+  },
+  {
+    "query": "Duplicate payment prevention",
+    "expected_topics": [
+      "idempotency enforcement",
+      "double submission block",
+      "submit button disable on click",
+      "duplicate transaction detection"
+    ]
+  },
+  {
+    "query": "SQL injection in cardholder name",
+    "expected_topics": [
+      "input sanitization",
+      "SQL injection prevention",
+      "cardholder field security",
+      "malicious payload rejection"
+    ]
+  },
+  {
+    "query": "Brute force credit card attack",
+    "expected_topics": [
+      "rate limiting on card attempts",
+      "failed attempt threshold",
+      "CAPTCHA trigger",
+      "automated attack prevention"
+    ]
+  },
+  {
+    "query": "Full refund processing",
+    "expected_topics": [
+      "refund eligibility check",
+      "full amount reversal",
+      "refund status update",
+      "original transaction reference"
+    ]
+  },
+  {
+    "query": "Save card for future use",
+    "expected_topics": [
+      "card tokenization",
+      "secure card storage",
+      "PCI compliant saving",
+      "saved card retrieval"
+    ]
+  },
+  {
+    "query": "Valid login with correct credentials",
+    "expected_topics": [
+      "credential verification",
+      "session token creation",
+      "post-login redirect",
+      "authentication success state"
+    ]
+  },
+  {
+    "query": "SQL injection in login username",
+    "expected_topics": [
+      "login field sanitization",
+      "SQL injection prevention",
+      "authentication bypass attempt",
+      "malicious input handling"
+    ]
+  },
+  {
+    "query": "Account lockout after multiple failed login attempts",
+    "expected_topics": [
+      "failed attempt counter",
+      "lockout threshold enforcement",
+      "lockout error message",
+      "brute force prevention"
+    ]
+  },
+  {
+    "query": "CAPTCHA verification on login",
+    "expected_topics": [
+      "CAPTCHA trigger condition",
+      "bot prevention mechanism",
+      "CAPTCHA challenge flow",
+      "post-CAPTCHA authentication"
+    ]
+  },
+  {
+    "query": "Valid user registration",
+    "expected_topics": [
+      "registration form validation",
+      "unique email enforcement",
+      "account creation flow",
+      "email verification trigger"
+    ]
+  },
+  {
+    "query": "Weak password validation on registration",
+    "expected_topics": [
+      "password strength policy",
+      "minimum length enforcement",
+      "complexity requirements",
+      "real-time strength feedback"
+    ]
+  },
+  {
+    "query": "SQL injection in registration form",
+    "expected_topics": [
+      "registration field sanitization",
+      "SQL injection prevention",
+      "safe data persistence",
+      "malicious username handling"
+    ]
+  },
+  {
+    "query": "Age verification on registration",
+    "expected_topics": [
+      "date of birth validation",
+      "minimum age enforcement",
+      "underage account rejection",
+      "age policy compliance"
+    ]
+  },
+  {
+    "query": "Successful logout",
+    "expected_topics": [
+      "session termination",
+      "logout redirect",
+      "authentication state clearing",
+      "secure sign-out flow"
+    ]
+  },
+  {
+    "query": "Session termination after logout",
+    "expected_topics": [
+      "session token invalidation",
+      "post-logout access denial",
+      "reuse of old token prevention",
+      "server-side session cleanup"
+    ]
+  },
+  {
+    "query": "Back button access after logout",
+    "expected_topics": [
+      "browser back navigation security",
+      "cached page protection",
+      "session check on navigation",
+      "re-authentication prompt"
+    ]
+  },
+  {
+    "query": "Add item exceeding available stock",
+    "expected_topics": [
+      "stock quantity validation",
+      "inventory limit enforcement",
+      "over-stock error message",
+      "available quantity check"
+    ]
+  },
+  {
+    "query": "Add item without selecting required variations",
+    "expected_topics": [
+      "required attribute enforcement",
+      "variation selection validation",
+      "add-to-cart block",
+      "missing option error"
+    ]
+  },
+  {
+    "query": "Maximum cart item limit",
+    "expected_topics": [
+      "cart capacity enforcement",
+      "max item threshold",
+      "cart full error message",
+      "item limit boundary check"
+    ]
+  },
+  {
+    "query": "Delete account with confirmation",
+    "expected_topics": [
+      "deletion confirmation step",
+      "password re-verification",
+      "irreversible action warning",
+      "account removal flow"
+    ]
+  },
+  {
+    "query": "Data removal after account deletion",
+    "expected_topics": [
+      "personal data erasure",
+      "GDPR compliance",
+      "data anonymization policy",
+      "post-deletion data verification"
+    ]
+  }
+]

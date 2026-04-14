@@ -13,7 +13,8 @@ The project provides both a CLI interface and a web-based UI built with Streamli
 
 - V1: Basic LLM-based test case generation  
 - V2: Introduced RAG for context-aware generation  
-- V3: Improved retrieval precision and refactored architecture  
+- V3: Improved retrieval precision and refactored architecture 
+- V4: Retrieval Evaluation, Query Rewriting, and Alignment Improvements for Reliable RAG Systems
 
 ---
 
@@ -98,11 +99,70 @@ Enhanced retrieval accuracy and improved system design and modularity.
 
 ---
 
+## 🚀 Update (V4 - Retrieval Alignment, Evaluation & Query Rewriting)
+
+This version focuses on improving retrieval reliability and alignment between user queries and the knowledge base.
+
+### 🔍 Evaluation Framework
+
+Introduced a retrieval evaluation pipeline to measure system performance and identify failure patterns.
+
+- Built a ground-truth dataset mapping queries → expected test cases
+- Measured retrieval using:
+  - Hit@K (whether correct document is retrieved)
+  - Recall@K (coverage for multi-document queries)
+- Logged retrieval outputs (indices, scores, distances) for analysis
+
+This helped uncover hidden issues where outputs looked correct but retrieval was incorrect.
+
+---
+
+### 🔄 Query Rewriting (Alignment Layer)
+
+Added a query rewriting layer to bridge the gap between user language and document language.
+
+- Generates:
+  - Canonical query (QA-style)
+  - Multiple semantic expansions
+- Uses validation logic (keyword overlap) to filter weak rewrites
+- Improves retrieval consistency across different query phrasings
+
+Insight:
+> Retrieval failures were often caused by language mismatch, not embeddings.
+
+---
+
+### 🧩 Knowledge Base Segmentation
+
+Introduced test type segmentation to improve retrieval precision.
+
+- Users explicitly select:
+  - Functional
+  - Non-functional (e.g., security, performance)
+- Retrieval is performed on a filtered subset of the dataset
+
+Benefits:
+
+- Reduced search space
+- Improved semantic alignment
+- Reduced cross-domain noise (e.g., security vs functional mix-ups)
+
+---
+
+### 🧠 Key Learnings
+
+- Retrieval issues are often **alignment problems**, not embedding problems
+- More data does not fix retrieval — better structure does
+- Evaluation is not just a metric — it is a diagnostic tool
+- Consistency across rewrites is a stronger signal than single-query similarity
+
+---
+
 ## 🔄 Pipeline Architecture
 
 The system uses a Retrieval-Augmented Generation (RAG) pipeline:
 
-Requirement → Embedding → Normalization → FAISS (Top-K Retrieval) → Similarity Filtering → Prompt → LLM → Test Cases
+Requirement → Query Rewriting → Filtered Retrieval (by test_type) → FAISS → Aggregation → Prompt → LLM
 
 ---
 
@@ -111,33 +171,38 @@ Requirement → Embedding → Normalization → FAISS (Top-K Retrieval) → Simi
 AI Test Case Generator
 
 ├── cli
-│   └── cli.py              # CLI interface for user input and execution
+│   └── cli.py                    # CLI interface for user input and execution
 │
 ├── core
-│   ├── __init__.py
-│   └── testcase_generator.py   # LLM interaction and test case generation logic
+│   └── testcase_generator.py    # LLM orchestration and test case generation
 │
-├── models
-│   ├── __init__.py
-│   └── pydantic_models.py      # Structured schema for test case output
+├── eval
+│   ├── retrieval
+│   │   ├── retrieval_eval.py            # Retrieval evaluation logic (Hit@K, Recall@K)
+│   │   └── rag_retrieval_eval_dataset.json  # Ground truth dataset for retrieval eval
+│   │
+│   └── output
+│       └── rag_output_eval_dataset.json     # Dataset for output-level evaluation
 │
 ├── rag
-│   ├── __init__.py
-│   ├── documents.py            # Creates and manages test case documents
-│   └── rag_engine.py           # Generates embeddings and performs FAISS retrieval
+│   ├── documents.py             # Creates and manages test case documents
+│   ├── rag_engine.py            # Embedding generation and FAISS retrieval
+│   ├── rewriter.py              # Query rewriting (canonical + semantic expansions)
+│
+├── models
+│   └── pydantic_models.py       # Structured schema for test case output
 │
 ├── data
-│   └── sample_testcases.csv    # Sample dataset used for RAG retrieval
+│   └── sample_testcases.csv     # Dataset used for RAG retrieval
 │
 ├── ui
 │   └── app.py                  # Streamlit web application
 │
 ├── utils
-│   ├── __init__.py
-│   └── export_csv.py           # Export test cases to CSV
+│   ├── export_csv.py           # Export generated test cases to CSV
+│   └── test_type_mapper.py     # Maps and filters test types (functional / non-functional)
 │
 ├── config.py                   # Configuration and environment setup
-├── project.env                 # Environment variables (not committed)
 ├── requirements.txt            # Project dependencies
 ├── README.md                   # Project documentation
 └── .gitignore                  # Ignored files

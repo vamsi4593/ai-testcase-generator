@@ -5,14 +5,13 @@ tg = TestCaseGenerator()
 
 print("---------- AI Test Case Generator ----------")
 requirement = input("Please enter your requirement: ")
-test_type = input(
-    "Please enter your test type (functional,non-functional,both): "
-).lower()
 
+valid_types = ["functional", "non-functional", "both"]
+test_type = input("Please enter your test type: ").strip().lower()
 
-while test_type not in ["functional", "non-functional", "both"]:
-    print("Invalid type, Please enter functional, non-functional or both.")
-    test_type = input("Please enter your test type: ").lower()
+while test_type not in valid_types:
+    print("Invalid type. Please enter: functional, non-functional, or both.")
+    test_type = input("Please enter your test type: ").strip().lower()
 
 
 def display_test_cases(test_cases):
@@ -27,7 +26,6 @@ def display_test_cases(test_cases):
 
 testcases = tg.generate_testcase(requirement, test_type)
 display_test_cases(testcases)
-
 
 export_test_cases = input(
     "Do you want to export the test cases to CSV file ? y/n : "
