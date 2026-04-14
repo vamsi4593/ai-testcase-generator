@@ -7,11 +7,15 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 file_path = BASE_DIR / "data" / "updated_rag_testcases.csv"
 
 try:
+
     @lru_cache(maxsize=None)
     def load_data(path: str) -> pd.DataFrame:
         df = pd.read_csv(path)
-        df[["test_case_id", "title", "test_type"]] = df[["test_case_id", "title", "test_type"]].ffill()
+        df[["test_case_id", "title", "test_type"]] = df[
+            ["test_case_id", "title", "test_type"]
+        ].ffill()
         return df
+
 except FileNotFoundError:
     print(f"Error: File is not found at {file_path}")
 except Exception as e:
@@ -26,9 +30,8 @@ def document_writer(test_case_type: str):
 
     df["test_type"] = df["test_type"].str.strip().str.lower()
 
-
     mapped_types = normalised_test_type(test_case_type)
-    #print(f"mapped types is {mapped_types}")
+    # print(f"mapped types is {mapped_types}")
     mapped_types = [t.strip().lower() for t in mapped_types]
 
     filtered_df = df[df["test_type"].isin(mapped_types)]
@@ -38,8 +41,7 @@ def document_writer(test_case_type: str):
         return []
 
     result = (
-        filtered_df
-        .groupby(["test_case_id", "title", "test_type"], sort=False)
+        filtered_df.groupby(["test_case_id", "title", "test_type"], sort=False)
         .apply(lambda x: x.to_dict("records"), include_groups=False)
         .to_dict()
     )
@@ -83,7 +85,7 @@ def document_writer(test_case_type: str):
             f"scenario: {tc_scenario or ''}\n"
             f"steps:\n{steps}"
             f"expected result:\n{expected_result}"
-         )
+        )
 
         embed_str = (
             f"title: {title}\n"
@@ -95,9 +97,7 @@ def document_writer(test_case_type: str):
         documents.append(embed_str)
         tc_ids.append(doc_str)
 
-    return {
-        "documents": documents,
-        "tc_ids": tc_ids
-    }
+    return {"documents": documents, "tc_ids": tc_ids}
+
 
 document_writer("functional")

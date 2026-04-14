@@ -12,9 +12,7 @@ class TestCaseGenerator:
     def prompt_builder(self, requirement, test_type):
         initial_prompt = f"Generating {test_type} test cases for {requirement}"
         print(f"------ user prompt: {initial_prompt}----------")
-        context_prompt = self.rag.create_context_prompt(
-            requirement, test_type, k=3
-        )
+        context_prompt = self.rag.create_context_prompt(requirement, test_type, k=3)
         prompt = f"""
         I am providing reference test cases from our database to show you the expected format and level of detail.
 
@@ -87,6 +85,3 @@ class TestCaseGenerator:
             model=config.MODEL_NAME, input=prompt_rewrite_text, text_format=Pm.Rewrite
         )
         print(f"\n response is {response.output_parsed} \n")
-
-
-

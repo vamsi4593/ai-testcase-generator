@@ -13,6 +13,7 @@ while test_type not in valid_types:
     print("Invalid type. Please enter: functional, non-functional, or both.")
     test_type = input("Please enter your test type: ").strip().lower()
 
+
 def display_test_cases(test_cases):
     for testcase in test_cases:
         print("-" * 60)

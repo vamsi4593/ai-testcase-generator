@@ -62,7 +62,9 @@ class RAGEngine:
         document = self.get_document(test_case_type)["documents"]
         query_rewrite = self.rewrite.rewrite_prompt(input_prompt)
         print(f"query_rewrite: {query_rewrite}")
-        query_list = [input_prompt] + [query_rewrite.canonical] + query_rewrite.expansions
+        query_list = (
+            [input_prompt] + [query_rewrite.canonical] + query_rewrite.expansions
+        )
         print(f"query_list: {query_list}")
         doc_dict = {}
         for query in query_list:
@@ -77,9 +79,9 @@ class RAGEngine:
                     doc_dict[document[i]] = 1
         context_docs = []
         print(doc_dict)
-        for doc in doc_dict:
-            if doc_dict[doc] >=1:
-                context_docs.append(doc)
+        for document in doc_dict:
+            if doc_dict[document] >= 1:
+                context_docs.append(document)
 
         context_prompt = " ".join(context_docs)
         print(f"context_prompt : {context_prompt}")
@@ -108,8 +110,7 @@ class RAGEngine:
 
         tc_ids = []
         for tc in tc_id:
-            if tc_id[tc]>=1:
-                tc_ids.append(tc.split('\n')[0].split(':')[1].strip(' '))
+            if tc_id[tc] >= 1:
+                tc_ids.append(tc.split("\n")[0].split(":")[1].strip(" "))
         print(f"tc_ids : {tc_ids}")
         return tc_ids
-

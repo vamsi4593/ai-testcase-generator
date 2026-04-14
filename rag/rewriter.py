@@ -10,7 +10,7 @@ class Rewriter:
         self.client = OpenAI()
         self.validate = Validate()
 
-    def rewrite_prompt(self, prompt, retry =0):
+    def rewrite_prompt(self, prompt, retry=0):
         prompt_rewrite_text = f"""Rewrite the following query into QA-style phrases for retrieval:
         {prompt}
 
