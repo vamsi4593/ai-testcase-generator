@@ -1,0 +1,152 @@
+[
+  {
+    "query": "Successful checkout using a valid credit card with correct card number, expiry, and CVV — payment is accepted and order is confirmed",
+    "test_type": "functional",
+    "relevant_docs": ["TC001"]
+  },
+  {
+    "query": "Checkout fails because the customer's credit card expiry date has passed — system displays an expired card error and prevents payment processing",
+    "test_type": "functional",
+    "relevant_docs": ["TC004"]
+  },
+  {
+    "query": "Payment rejected at checkout due to an invalid or malformed credit card number that fails Luhn algorithm validation",
+    "test_type": "functional",
+    "relevant_docs": ["TC003"]
+  },
+  {
+    "query": "Credit card payment declined because the entered CVV security code does not match the card's verification value",
+    "test_type": "functional",
+    "relevant_docs": ["TC005"]
+  },
+  {
+    "query": "Payment gateway enforces a minimum transaction threshold — orders below the minimum amount are blocked before processing",
+    "test_type": "functional",
+    "relevant_docs": ["TC013"]
+  },
+  {
+    "query": "Checkout attempted with a zero-value cart total — system behavior when no payable amount exists and payment step is reached",
+    "test_type": "functional",
+    "relevant_docs": ["TC015"]
+  },
+  {
+    "query": "Tampered payment request containing a negative transaction amount — security validation must reject negative or manipulated price values",
+    "test_type": "functional",
+    "relevant_docs": ["TC017"]
+  },
+  {
+    "query": "Credit card payment declined by the bank because the cardholder has insufficient funds or credit limit is exceeded",
+    "test_type": "functional",
+    "relevant_docs": ["TC019"]
+  },
+  {
+    "query": "Payment transaction declined or rejected by the issuing bank — downstream bank refusal handling during the checkout payment flow",
+    "test_type": "functional",
+    "relevant_docs": ["TC022"]
+  },
+  {
+    "query": "Attacker injects malicious SQL code into the cardholder name input during payment — system must sanitize input and prevent database query manipulation",
+    "test_type": "non-functional",
+    "relevant_docs": ["TC029"]
+  },
+  {
+    "query": "XSS attack via script tag injected into the billing address field at checkout — stored or reflected cross-site scripting vulnerability test",
+    "test_type": "non-functional",
+    "relevant_docs": ["TC030"]
+  },
+  {
+    "query": "Bot-driven brute force attack cycling through many card numbers at the payment step — rate limiting and fraud detection must block enumeration attempts",
+    "test_type": "non-functional",
+    "relevant_docs": ["TC035"]
+  },
+  {
+    "query": "PCI-DSS violation: cardholder credit card number or CVV appears in plaintext server-side logs — sensitive payment data must never be logged unmasked",
+    "test_type": "non-functional",
+    "relevant_docs": ["TC031"]
+  },
+  {
+    "query": "Payment module security test suite covering SQL injection, XSS in billing fields, plaintext card data in logs, request tampering, and automated card enumeration attacks",
+    "test_type": "non-functional",
+    "relevant_docs": ["TC029", "TC030", "TC031", "TC033", "TC034", "TC035"]
+  },
+  {
+    "query": "Successful user authentication using a valid registered email address and correct password — user is logged in and redirected to the authenticated session",
+    "test_type": "functional",
+    "relevant_docs": ["TC202"]
+  },
+  {
+    "query": "User account is temporarily locked after exceeding the maximum number of consecutive failed login attempts — brute force lockout policy is enforced",
+    "test_type": "non-functional",
+    "relevant_docs": ["TC209"]
+  },
+  {
+    "query": "Attacker inputs SQL injection payload into the username field on the login form — authentication bypass via database query manipulation must be prevented",
+    "test_type": "non-functional",
+    "relevant_docs": ["TC207"]
+  },
+  {
+    "query": "CAPTCHA challenge is displayed to the user after repeated failed login attempts — bot mitigation triggered after threshold of authentication failures",
+    "test_type": "non-functional",
+    "relevant_docs": ["TC220"]
+  },
+  {
+    "query": "Login security test suite covering SQL injection in username, credential stuffing, account lockout after failed attempts, and CAPTCHA enforcement for bot prevention",
+    "test_type": "non-functional",
+    "relevant_docs": ["TC207", "TC208", "TC209", "TC220"]
+  },
+  {
+    "query": "New user successfully completes account registration with a valid unique email, strong password, and all required fields — account is created and confirmation is sent",
+    "test_type": "functional",
+    "relevant_docs": ["TC222"]
+  },
+  {
+    "query": "Registration fails because the chosen password does not meet minimum strength requirements — system enforces password complexity policy during account creation",
+    "test_type": "functional",
+    "relevant_docs": ["TC226"]
+  },
+  {
+    "query": "Registration attempt rejected because the submitted email address is already associated with an existing account — duplicate account prevention during sign up",
+    "test_type": "functional",
+    "relevant_docs": ["TC223"]
+  },
+  {
+    "query": "XSS attack via script tag or JavaScript payload injected into registration form fields — stored cross-site scripting vulnerability during new account creation",
+    "test_type": "non-functional",
+    "relevant_docs": ["TC232"]
+  },
+  {
+    "query": "Registration blocked because the user's date of birth indicates they are below the minimum age requirement — age verification enforcement during account sign up",
+    "test_type": "functional",
+    "relevant_docs": ["TC233"]
+  },
+  {
+    "query": "Customer attempts to add more units to the cart than are available in inventory — stock validation prevents overselling when requested quantity exceeds stock level",
+    "test_type": "functional",
+    "relevant_docs": ["TC256"]
+  },
+  {
+    "query": "Add-to-cart blocked because the customer has not selected required product variants such as size or color — mandatory attribute validation before adding to basket",
+    "test_type": "functional",
+    "relevant_docs": ["TC263"]
+  },
+  {
+    "query": "Shopping cart cannot accept additional products because the maximum number of distinct line items or total quantity has been reached — cart capacity limit enforced",
+    "test_type": "functional",
+    "relevant_docs": ["TC267"]
+  },
+  {
+    "query": "Account deletion flow requires the user to re-enter their current password as confirmation — re-authentication step prevents accidental or unauthorized account removal",
+    "test_type": "functional",
+    "relevant_docs": ["TC287"]
+  },
+  {
+    "query": "After account deletion, all personal data including profile, order history, and PII is permanently purged from the system — GDPR right-to-erasure compliance verification",
+    "test_type": "non-functional",
+    "relevant_docs": ["TC292"]
+  },
+  {
+    "query": "Account deletion test suite covering password re-confirmation, active order restrictions, data purge of personal information, GDPR erasure compliance, and post-deletion access prevention",
+    "test_type": "both",
+    "relevant_docs": ["TC287", "TC289", "TC290", "TC292", "TC294"]
+  }
+]

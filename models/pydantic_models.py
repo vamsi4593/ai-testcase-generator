@@ -16,3 +16,7 @@ class TestCase(BaseModel):
 
 class TestCases(BaseModel):
     test_cases: list[TestCase]
+
+class Rewrite(BaseModel):
+    canonical: str
+    expansions : list[str]

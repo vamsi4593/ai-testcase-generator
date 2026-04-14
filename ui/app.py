@@ -42,7 +42,7 @@ with results_container:
         col1, col2, col3 = st.columns(3)
         col1.metric("Total Cases", total_cases)
         col2.metric("Total Steps", total_steps)
-        col3.metric("Test Type", tg.normalised_test_type(test_type))
+        col3.metric("Test Type", test_type)
 
         items_per_page = 2
         total_pages = math.ceil(total_cases / items_per_page)
